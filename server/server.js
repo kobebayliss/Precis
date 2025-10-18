@@ -11,15 +11,18 @@ async function testConnection() {
     
     const database = client.db('precis-db');
     const collections = await database.listCollections().toArray();
-    const links = database.collection('links');
-    console.log('Available collections:', collections);
-    const result = await links.insertOne(
-        {
-            name: "Eddard",
-            age: 43
-        }
-    )
-    console.log('Insert successful:', result);
+
+    console.log(collections)
+    
+    const testEntry = {
+      shortCode: 'ABCDEF',
+      originalUrl: 'https://example.com',
+      clicks: 0,
+      createdAt: new Date()
+    }
+
+    await database.collection('links').insertOne(testEntry)
+
   } catch (error) {
     console.error('Connection failed:', error);
   } finally {
