@@ -1,15 +1,25 @@
 import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import axios from 'axios'
 import './App.css'
 
 
 function App() {
   const [givenLink, setGivenLink] = useState('');
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(givenLink);
+  async function handleSubmit(e) {
+    try {
+      e.preventDefault();
+
+      const response = await axios.post('http://localhost:3001/shorten', {
+        url: givenLink,
+      })
+      console.log('Success:', response.data);
+      
+    } catch (error) {
+      console.log('Error:', error.response?.data || error.message);
+    }
   }
 
   return (
