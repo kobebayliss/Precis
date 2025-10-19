@@ -12,11 +12,16 @@ function App() {
     try {
       e.preventDefault();
 
-      const response = await axios.post('http://localhost:3001/shorten', {
-        url: givenLink,
-      })
-      console.log('Success:', response.data);
+      if (!givenLink.includes('.')) {
+        console.log("Invalid URL")
+      } else {
+
+        const response = await axios.post('http://localhost:3001/shorten', {
+          url: givenLink,
+        })
+        console.log('Success:', response.data);
       
+      }
     } catch (error) {
       console.log('Error:', error.response?.data || error.message);
     }
