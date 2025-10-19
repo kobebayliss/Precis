@@ -17,6 +17,7 @@ function generateShortcode() {
   return code;
 }
 
+// Connect to DB
 async function databaseConnection() {
   const uri = process.env.MONGODB_URI;
   const client = new MongoClient(uri);
@@ -35,10 +36,11 @@ async function databaseConnection() {
   }
 }
 
+// Generate short code and add entry to DB
 app.post('/shorten', async (req, res) => {
   try {
     if (!database) {
-      console.error('❌ Database not connected yet!');
+      console.error('Database not connected yet!');
       return res.status(503).json({ error: 'Database not ready' });
     }
     const { url } = req.body;
@@ -64,6 +66,25 @@ app.post('/shorten', async (req, res) => {
 
   } catch (error) {
     console.error(error)
+  }
+})
+
+// Redirect users to original URL
+app.get('/:shortCode', async(req, res) => {
+  try {
+    const { shortCode } = req.params;
+    const link = await database.collection('links').findOne({ shortCode })
+
+    await database.collection('links').updateOne(
+      { shortCode },
+      { $inc: {clicks: 1} }
+    )
+
+    res.redirect(link.originalUrl)
+
+  } catch (error) {
+    console.error('Error redirecting:', error);
+    res.status(500).json({ error: 'Failed to redirect' });
   }
 })
 
