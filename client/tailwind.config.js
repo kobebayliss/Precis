@@ -5,7 +5,21 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        inter: ['"Inter"', 'sans-serif'],
+        geist: ['"Geist"', 'sans-serif'],
+      },
+      keyframes: {
+        animateStarKeyframe: {
+          "0%": { transform: "translateY(0px)" },
+          "100%": { transform: "translateY(-4000px)" },
+        },
+      },
+      animation: {
+        "animateStar": "animateStarKeyframe 50s linear infinite",
+      },
+    },
   },
   plugins: [],
 }
