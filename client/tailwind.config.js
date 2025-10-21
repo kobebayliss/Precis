@@ -17,7 +17,9 @@ export default {
         },
       },
       animation: {
-        "animateStar": "animateStarKeyframe 50s linear infinite",
+        "animateStars": "animateStarKeyframe 50s linear infinite",
+        "animateStars2": "animateStarKeyframe 70s linear infinite",
+        "animateStars3": "animateStarKeyframe 90s linear infinite",
       },
     },
   },
