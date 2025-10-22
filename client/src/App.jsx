@@ -6,6 +6,7 @@ import './App.css'
 
 function App() {
   const [givenLink, setGivenLink] = useState('');
+  const [shortCode, setShortCode] = useState('');
 
   async function handleSubmit(e) {
     try {
@@ -19,7 +20,7 @@ function App() {
           url: givenLink,
         })
         console.log('Success:', response.data);
-      
+        setShortCode(response.data.shortCode);
       }
     } catch (error) {
       console.log('Error:', error.response?.data || error.message);
@@ -32,8 +33,8 @@ function App() {
       let shadows = '';
 
       for (let i = 0; i < count; i++) {
-        const x = Math.floor(Math.random() * 4000)
-        const y = Math.floor(Math.random() * 4000)
+        const x = Math.floor(Math.random() * 12000)
+        const y = Math.floor(Math.random() * 12000)
         shadows += `${x}px ${y}px #FFF`
         if (i !== count -1) { shadows += `,` }
       }
@@ -42,7 +43,7 @@ function App() {
 
       const secondLayer = document.createElement("div");
       secondLayer.style.position = "absolute";
-      secondLayer.style.top = "4000px";
+      secondLayer.style.top = "12000px";
       secondLayer.style.width = `${size}px`;
       secondLayer.style.height = `${size}px`;
       secondLayer.style.boxShadow = shadows;
@@ -51,10 +52,21 @@ function App() {
       element.appendChild(secondLayer);
     }
 
-    createStars("stars", 1400, 1);
-    createStars("stars2", 400, 2);
-    createStars("stars3", 175, 3);
+    createStars("stars", 4200, 1);
+    createStars("stars2", 1200, 2);
+    createStars("stars3", 525, 3);
   }, []);
+
+  useEffect(() => {
+    const resultSection = document.getElementById("resultSection");
+    if (resultSection) {
+      if (shortCode === '') {
+        resultSection.style.display = 'none';
+      } else {
+        resultSection.style.display = 'flex';
+      }
+    }
+  }, [shortCode]);
 
   return (
     <div className="h-screen overflow-hidden bg-gradient-to-b from-[#1B2735] to-[#090A0F] relative">
@@ -64,7 +76,6 @@ function App() {
       <div className="h-screen flex flex-col items-center justify-center text-center">
         <h1 className="text-[50px] font-geist font-bold text-[#D6DDE6]">
           precis
-          <br/>
         </h1>
         <form onSubmit={handleSubmit} className="flex mt-4">
           <div className="flex w-[400px] h-[62px] rounded-lg items-center shadow-lg shadow-[#D6DDE6]/60">
@@ -81,10 +92,13 @@ function App() {
               type="submit"
               className="right-2 z-10 bg-[#D6DDE6] text-[#0f1117] font-geist font-medium px-4 h-full rounded-r-lg shadow-lg"
             >
-              submit
+              shorten
             </button>
           </div>
         </form>
+        <div id="resultSection" className="w-20 h-10 bg-white">
+          {shortCode}
+        </div>
       </div>
     </div>
   )
