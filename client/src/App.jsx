@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import axios from 'axios'
+import { CopyButton } from './components/CopyButton'
 import './App.css'
 
 function App() {
@@ -61,7 +62,7 @@ function App() {
     const resultSection = document.getElementById("resultSection");
     if (resultSection) {
       if (shortCode === '') {
-        resultSection.style.display = 'none';
+        resultSection.style.display = 'flex';
       } else {
         resultSection.style.display = 'flex';
       }
@@ -84,8 +85,6 @@ function App() {
             placeholder="ENTER LINK" 
             value={givenLink} 
             onChange={(e) => setGivenLink(e.target.value)} 
-            // add enter button on right side of search bar
-            // also some of the stars disappearing... ?? perhaps when 2nd layer loops
             className="w-[400px] h-[60px] p-4 text-[18px] placeholder:font-geist z-10 text-[#D6DDE6] font-geist bg-[#0f1117] rounded-l-lg placeholder:text-[#929292] ring-[1px] ring-[#3b3b3b] focus:outline-none focus:ring-[#D6DDE6] placeholder:text-[16px] focus:placeholder-transparent transition-all"
             />
             <button
@@ -96,9 +95,22 @@ function App() {
             </button>
           </div>
         </form>
-        <div id="resultSection" className="w-20 h-10 bg-white">
-          {shortCode}
-        </div>
+        {shortCode &&
+          <div id="resultSection" className="w-[320px] z-10 py-3 px-4 flex flex-col items-center bg-[#0f1117] text-[#D6DDE6] font-geist rounded-xl mt-6 border border-[#3b3b3b] shadow-md">
+            <div id="header" className="w-full flex flex-col items-center text-center">
+              <div className="text-lg font-semibold tracking-wide text-[#D6DDE6] mb-2">
+                SHORTENED URL
+              </div>
+              <div className="break-all bg-[#1a1c24] px-3 py-2 rounded-md w-full text-[#D6DDE6] shadow-inner">
+                {`localhost:3001/${shortCode}`}
+              </div>
+              <CopyButton content={`localhost:3001/${shortCode}`} size="sm" className="!bg-[#D6DDE6] !text-[#0f1117] !w-10 !h-10 !mx-auto !mt-3"/>
+            </div>
+          </div>
+        }
+        <a className="font-geist absolute text-[#D6DDE6] bottom-4" href="https://github.com/kobebayliss/Precis" target="_blank">
+          <img src="/assets/images/github.png" alt="Github" className="w-12 h-auto"/>
+        </a>
       </div>
     </div>
   )
