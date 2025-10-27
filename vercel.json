@@ -1,15 +1,4 @@
 {
   "buildCommand": "cd client && npm install && npm run build",
-  "outputDirectory": "client/dist",
-  "functions": {
-    "api/server.js": {
-      "maxDuration": 10
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "/api/server.js"
-    }
-  ]
+  "outputDirectory": "client/dist"
 }
