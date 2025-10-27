@@ -8,6 +8,7 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 let database;
+let cachedDb = null;
 
 function generateShortcode() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -20,30 +21,24 @@ function generateShortcode() {
 
 // Connect to DB
 async function databaseConnection() {
+  if (cachedDb) return cachedDb;
   const uri = process.env.MONGODB_URI;
   const client = new MongoClient(uri);
   
   try {
     await client.connect();
-    console.log('Connected to MongoDB successfully!');
-    
-    database = client.db('precis-db');
-    const collections = await database.listCollections().toArray();
-
-    console.log(collections)
-
+    cachedDb = client.db('precis-db');
+    return cachedDb;
   } catch (error) {
     console.error('Connection failed:', error);
+    throw error;
   }
 }
 
 // Generate short code and add entry to DB
 app.post('/shorten', async (req, res) => {
   try {
-    if (!database) {
-      console.error('Database not connected yet!');
-      return res.status(503).json({ error: 'Database not ready' });
-    }
+    const database = await databaseConnection();
     const { url } = req.body;
 
     if (!url) {
@@ -73,6 +68,7 @@ app.post('/shorten', async (req, res) => {
 // Redirect users to original URL
 app.get('/:shortCode', async(req, res) => {
   try {
+    const database = await databaseConnection();
     const { shortCode } = req.params;
     const link = await database.collection('links').findOne({ shortCode })
 
@@ -89,6 +85,4 @@ app.get('/:shortCode', async(req, res) => {
   }
 })
 
-databaseConnection();
-module.exports = app;
 module.exports.handler = serverless(app);
