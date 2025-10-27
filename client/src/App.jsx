@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { CopyButton } from './components/CopyButton'
 import { Spinner } from './components/Spinner'
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import './App.css'
 
 function App() {
