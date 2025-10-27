@@ -2,6 +2,7 @@ require('dotenv').config({ path: '../.env' });
 const { MongoClient } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
+const serverless = require('serverless-http');
 const app = express();
 const PORT = 3001;
 app.use(cors());
@@ -88,8 +89,8 @@ app.get('/:shortCode', async(req, res) => {
   }
 })
 
-databaseConnection().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running on https://precis-backend.vercel.app`);
-  });
-});
+databaseConnection();
+module.exports = app;
+
+const serverless = require('serverless-http');
+module.exports.handler = serverless(app);
