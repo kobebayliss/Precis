@@ -9,6 +9,14 @@ app.use(express.json());
 let database;
 let cachedDb = null;
 
+app.get('/api/test', (req, res) => {
+  res.json({
+    status: 'API is working',
+    hasMongoUri: !!process.env.MONGODB_URI,
+    mongoUriLength: process.env.MONGODB_URI ? process.env.MONGODB_URI.length : 0
+  });
+});
+
 function generateShortcode() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   let code = '';
