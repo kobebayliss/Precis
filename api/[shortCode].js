@@ -5,8 +5,6 @@ async function databaseConnection() {
   if (cachedDb) return cachedDb;
   const uri = process.env.MONGODB_URI;
   const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000,
     connectTimeoutMS: 5000,
   });
