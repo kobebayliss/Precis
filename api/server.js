@@ -85,4 +85,4 @@ app.get('/:shortCode', async(req, res) => {
   }
 })
 
-module.exports.handler = serverless(app);
+module.exports = serverless(app);
