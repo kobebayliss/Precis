@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import axios from 'axios'
 import { CopyButton } from './components/CopyButton'
 import './App.css'
