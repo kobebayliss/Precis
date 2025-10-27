@@ -30,20 +30,26 @@ function generateShortcode() {
 async function databaseConnection() {
   if (cachedDb) return cachedDb;
   const uri = process.env.MONGODB_URI;
-  const client = new MongoClient(uri);
+  const client = new MongoClient(uri, {
+    serverSelectionTimeoutMS: 5000,
+    connectTimeoutMS: 5000,
+  });
   
   try {
+    console.log('Connecting to MongoDB...');
     await client.connect();
+    console.log('MongoDB connected successfully');
     cachedDb = client.db('precis-db');
     return cachedDb;
   } catch (error) {
-    console.error('Connection failed:', error);
+    console.error('Connection failed:', error.message);
     throw error;
   }
 }
 
 // Generate short code and add entry to DB
 app.post('/api/shorten', async (req, res) => {
+  console.log('POST /api/shorten called');
   try {
     const database = await databaseConnection();
     const { url } = req.body;
@@ -68,7 +74,8 @@ app.post('/api/shorten', async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error)
+    console.error('Error in /api/shorten:', error.message);
+    res.status(500).json({ error: 'Failed to shorten URL', details: error.message });
   }
 })
 
@@ -78,6 +85,10 @@ app.get('/:shortCode', async(req, res) => {
     const database = await databaseConnection();
     const { shortCode } = req.params;
     const link = await database.collection('links').findOne({ shortCode })
+
+    if (!link) {
+      return res.status(404).send('Short URL not found');
+    }
 
     await database.collection('links').updateOne(
       { shortCode },
