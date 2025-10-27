@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config();
 const { MongoClient } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
@@ -91,6 +91,4 @@ app.get('/:shortCode', async(req, res) => {
 
 databaseConnection();
 module.exports = app;
-
-const serverless = require('serverless-http');
 module.exports.handler = serverless(app);
