@@ -57,7 +57,7 @@ app.post('/shorten', async (req, res) => {
     res.json({ 
       success: true, 
       shortCode,
-      shortUrl: `https://precis-backend.vercel.app/${shortCode}`
+      shortUrl: `/api/${shortCode}`
     });
 
   } catch (error) {
