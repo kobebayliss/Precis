@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { CopyButton } from './components/CopyButton'
+import { Spinner } from './components/Spinner'
 import './App.css'
 
 function App() {
   const [givenLink, setGivenLink] = useState('');
   const [shortCode, setShortCode] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     try {
+      setLoading(true);
       e.preventDefault();
 
       if (!givenLink.includes('.')) {
@@ -21,6 +24,7 @@ function App() {
         console.log('Success:', response.data);
         setShortCode(response.data.shortCode);
       }
+      setLoading(false);
     } catch (error) {
       console.log('Error:', error.response?.data || error.message);
     }
@@ -87,14 +91,17 @@ function App() {
             />
             <button
               type="submit"
-              className="right-2 z-10 bg-[#D6DDE6] text-[#0f1117] font-geist font-medium px-4 h-full rounded-r-lg shadow-lg"
+              className="right-2 z-10 bg-[#D6DDE6] text-[#0f1117] font-geist font-medium w-[112px] h-full rounded-r-lg shadow-lg flex items-center justify-center"
             >
-              shorten
+              <div className={`${loading ? 'hidden' : 'block'}`}>shorten</div>
+              <div className={`${loading ? 'block' : 'hidden'} `}>
+                <Spinner variant="default"/>
+              </div>
             </button>
           </div>
         </form>
         {shortCode &&
-          <div id="resultSection" className="w-[320px] z-10 py-3 px-4 flex flex-col items-center bg-[#0f1117] text-[#D6DDE6] font-geist rounded-xl mt-6 border border-[#3b3b3b] shadow-md">
+          <div id="resultSection" className="w-[360px] z-10 py-3 px-4 flex flex-col items-center bg-[#0f1117] text-[#D6DDE6] font-geist rounded-xl mt-6 border border-[#3b3b3b] shadow-md">
             <div id="header" className="w-full flex flex-col items-center text-center">
               <div className="text-lg font-semibold tracking-wide text-[#D6DDE6] mb-2">
                 SHORTENED URL

@@ -54,20 +54,4 @@ module.exports = async (req, res) => {
       shortUrl: `/${shortCode}`,
     });
   }
-
-  if (req.method === 'GET') {
-    const shortCode = req.query.shortCode;
-    if (!shortCode) return res.status(400).send('Short code is required');
-
-    const link = await db.collection('links').findOne({ shortCode });
-    if (!link) return res.status(404).send('Short URL not found');
-
-    db.collection('links').updateOne({ shortCode }, { $inc: { clicks: 1 } }).catch(console.error);
-
-    res.writeHead(302, { Location: link.originalUrl });
-    res.end();
-    return;
-  }
-
-  res.status(405).json({ error: 'Method not allowed' });
 };
