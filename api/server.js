@@ -36,7 +36,7 @@ async function databaseConnection() {
 }
 
 // Generate short code and add entry to DB
-app.post('/shorten', async (req, res) => {
+app.post('/api/shorten', async (req, res) => {
   try {
     const database = await databaseConnection();
     const { url } = req.body;
@@ -57,7 +57,7 @@ app.post('/shorten', async (req, res) => {
     res.json({ 
       success: true, 
       shortCode,
-      shortUrl: `/api/${shortCode}`
+      shortUrl: `/${shortCode}`
     });
 
   } catch (error) {

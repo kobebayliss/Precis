@@ -15,7 +15,7 @@ function App() {
         console.log("Invalid URL")
       } else {
 
-        const response = await axios.post('https://precis-backend.vercel.app/shorten', {
+        const response = await axios.post('/api/shorten', {
           url: givenLink,
         })
         console.log('Success:', response.data);
