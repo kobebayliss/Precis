@@ -61,7 +61,7 @@ app.post('/shorten', async (req, res) => {
     res.json({ 
       success: true, 
       shortCode,
-      shortUrl: `http://localhost:${PORT}/${shortCode}`
+      shortUrl: `https://precis-backend.vercel.app/${shortCode}`
     });
 
   } catch (error) {
@@ -90,6 +90,6 @@ app.get('/:shortCode', async(req, res) => {
 
 databaseConnection().then(() => {
   app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on https://precis-backend.vercel.app`);
   });
 });

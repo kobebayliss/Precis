@@ -17,7 +17,7 @@ function App() {
         console.log("Invalid URL")
       } else {
 
-        const response = await axios.post('http://localhost:3001/shorten', {
+        const response = await axios.post('https://precis-backend.vercel.app/shorten', {
           url: givenLink,
         })
         console.log('Success:', response.data);
@@ -102,9 +102,9 @@ function App() {
                 SHORTENED URL
               </div>
               <div className="break-all bg-[#1a1c24] px-3 py-2 rounded-md w-full text-[#D6DDE6] shadow-inner">
-                {`localhost:3001/${shortCode}`}
+                {`precis-backend.vercel.app/${shortCode}`}
               </div>
-              <CopyButton content={`localhost:3001/${shortCode}`} size="sm" className="!bg-[#D6DDE6] !text-[#0f1117] !w-10 !h-10 !mx-auto !mt-3"/>
+              <CopyButton content={`precis-backend.vercel.app/${shortCode}`} size="sm" className="!bg-[#D6DDE6] !text-[#0f1117] !w-10 !h-10 !mx-auto !mt-3"/>
             </div>
           </div>
         }
