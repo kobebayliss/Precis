@@ -72,7 +72,7 @@ function App() {
   }, [shortCode]);
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-b from-[#1B2735] to-[#090A0F] relative" style={{ minHeight: '100dvh' }}>
+    <div className="min-h-[100dvh] overflow-hidden bg-gradient-to-b from-[#1B2735] to-[#090A0F] relative">
       <div id = "stars" className=" w-[1px] h-[1px] rounded-lg bg-transparent animate-animateStars"/>
       <div id = "stars2" className="absolute w-[2px] h-[2px] rounded-lg bg-transparent animate-animateStars2"/>
       <div id = "stars3" className="absolute w-[4px] h-[4px] rounded-lg bg-transparent animate-animateStars3" style = {{ filter: "drop-shadow(0 0 6px rgba(255,255,255,0.8))" }}/>
