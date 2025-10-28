@@ -38,10 +38,15 @@ module.exports = async (req, res) => {
     const { url } = req.body;
     if (!url) return res.status(400).json({ error: 'URL is required' });
 
+    let normalizedUrl = url.trim();
+    if (!/^https?:\/\//i.test(normalizedUrl)) {
+      normalizedUrl = 'https://' + normalizedUrl;
+    }
+
     const shortCode = generateShortcode();
     await db.collection('links').insertOne({
       shortCode,
-      originalUrl: url,
+      originalUrl: normalizedUrl,
       clicks: 0,
       createdAt: new Date(),
     });
