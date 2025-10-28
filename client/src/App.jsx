@@ -72,11 +72,11 @@ function App() {
   }, [shortCode]);
 
   return (
-    <div className="min-h-[100svh] bg-gradient-to-b from-[#1B2735] to-[#090A0F] relative overflow-x-hidden">
+    <div className="min-h-[100lvh] bg-gradient-to-b from-[#1B2735] to-[#090A0F] relative overflow-hidden pb-[env(safe-area-inset-bottom)]">
       <div id = "stars" className=" w-[1px] h-[1px] rounded-lg bg-transparent animate-animateStars"/>
       <div id = "stars2" className="absolute w-[2px] h-[2px] rounded-lg bg-transparent animate-animateStars2"/>
       <div id = "stars3" className="absolute w-[4px] h-[4px] rounded-lg bg-transparent animate-animateStars3" style = {{ filter: "drop-shadow(0 0 6px rgba(255,255,255,0.8))" }}/>
-      <div className="min-h-[100svh] flex flex-col items-center justify-center text-center relative pb-16">
+      <div className="min-h-[100lvh] flex flex-col items-center justify-center text-center relative pb-16">
         <h1 className="text-[50px] font-geist font-bold text-[#D6DDE6]">
           precis
         </h1>
