@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 
     await db.collection('links').updateOne({ shortCode }, { $inc: { clicks: 1 } });
 
-    res.writeHead(302, { Location: link.originalUrl });
+    res.redirect(link.originalUrl);
     res.end();
   } catch (err) {
     console.error('Redirect error:', err);
