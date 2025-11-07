@@ -1,6 +1,7 @@
 const { MongoClient } = require('mongodb');
 let cachedDb = null;
 
+// Reuse database connection across serverless function invocations
 async function databaseConnection() {
   if (cachedDb) return cachedDb;
   const uri = process.env.MONGODB_URI;
@@ -29,6 +30,7 @@ module.exports = async (req, res) => {
 
     if (!link) return res.status(404).send('Short URL not found');
 
+    // Increment click counter and redirect
     await db.collection('links').updateOne({ shortCode }, { $inc: { clicks: 1 } });
 
     res.redirect(link.originalUrl);

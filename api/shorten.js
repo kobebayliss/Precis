@@ -33,7 +33,7 @@ async function databaseConnection() {
 module.exports = async (req, res) => {
   const db = await databaseConnection();
 
-  // Handle POST /api/url → shorten URL
+  // Handle POST /api/url to shorten URL
   if (req.method === 'POST') {
     const { url } = req.body;
     if (!url) return res.status(400).json({ error: 'URL is required' });

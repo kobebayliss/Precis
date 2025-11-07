@@ -9,6 +9,7 @@ function App() {
   const [shortCode, setShortCode] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Handle URL shortening submission
   async function handleSubmit(e) {
     try {
       setLoading(true);
@@ -30,11 +31,13 @@ function App() {
     }
   }
 
+  // Generate animated starfield background on startup
   useEffect(() => {
     const createStars = (id, count, size) => {
       const element = document.getElementById(id);
       let shadows = '';
-
+      
+      // Create random star positions
       for (let i = 0; i < count; i++) {
         const x = Math.floor(Math.random() * 12000)
         const y = Math.floor(Math.random() * 12000)
@@ -44,6 +47,7 @@ function App() {
 
       element.style.boxShadow = shadows;
 
+      // Create second layer for infinite scroll effect
       const secondLayer = document.createElement("div");
       secondLayer.style.position = "absolute";
       secondLayer.style.top = "12000px";
@@ -73,6 +77,7 @@ function App() {
 
   return (
     <div className="h-[100dvh] bg-gradient-to-b from-[#1B2735] to-[#090A0F] relative overflow-hidden">
+      {/* Star layers for animated background */}
       <div id = "stars" className=" w-[1px] h-[1px] rounded-lg bg-transparent animate-animateStars"/>
       <div id = "stars2" className="absolute w-[2px] h-[2px] rounded-lg bg-transparent animate-animateStars2"/>
       <div id = "stars3" className="absolute w-[4px] h-[4px] rounded-lg bg-transparent animate-animateStars3" style = {{ filter: "drop-shadow(0 0 6px rgba(255,255,255,0.8))" }}/>
@@ -80,6 +85,7 @@ function App() {
         <h1 className="text-[50px] font-geist font-bold text-[#D6DDE6]">
           precis
         </h1>
+        {/* URL input form */}
         <form onSubmit={handleSubmit} className="flex mt-4">
           <div className="flex w-[400px] h-[62px] rounded-lg items-center shadow-lg shadow-[#D6DDE6]/60">
             <input 
@@ -100,6 +106,7 @@ function App() {
             </button>
           </div>
         </form>
+        {/* Display shortened URL result */}
         {shortCode &&
           <div id="resultSection" className="w-[360px] z-10 py-3 px-4 flex flex-col items-center bg-[#0f1117] text-[#D6DDE6] font-geist rounded-xl mt-6 border border-[#3b3b3b] shadow-md">
             <div id="header" className="w-full flex flex-col items-center text-center">
