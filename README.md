@@ -41,4 +41,4 @@ npm run dev
 
 ## Legal and Contact
 This project is open-source and stores user-submitted URLs in a database for redirection purposes. No personal data is ever collected beyond the URLs shortened and basic click analytics.
-<br><br>kobebayliss1@gmail.com
+<br><br>Contact: kobebayliss1@gmail.com
