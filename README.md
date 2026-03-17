@@ -1,5 +1,5 @@
 # Precis
- Precis is a URL shortener made with Node.js, Express, MongoDB, and React.
+ Precis is a URL shortener made with Node.js, Axios, MongoDB, and React.
 
 https://precis-urls.vercel.app/
 
